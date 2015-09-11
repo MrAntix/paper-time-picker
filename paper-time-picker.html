@@ -249,7 +249,7 @@ If you include this element as part of `paper-dialog`, use the class
             console.log('_periodChanged' + value);
 
             var add = (this.period == 'PM' ? 12 : -12);
-            var hour = (value + add) % 24;
+            var hour = (this.hour + add) % 24;
 
             this._set(hour, this.minute, value);
             this._timeChanged();
