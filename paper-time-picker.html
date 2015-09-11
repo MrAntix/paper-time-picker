@@ -136,6 +136,7 @@ If you include this element as part of `paper-dialog`, use the class
           hour12: {
             type: Number,
             value: 0,
+            notify: true,
             observer: '_hour12Changed'
           },
           minute: {
@@ -198,6 +199,8 @@ If you include this element as part of `paper-dialog`, use the class
         _set: function (hour, minute, period) {
             if (this._setting) return;
 
+            console.log('paper-time-picker._set(' + hour + ', ' + minute + ', ' + period + ')');
+
             hour = (parseInt(hour) || 0) % 24;
             minute = (parseInt(minute) || 0) % 60;
 
@@ -208,38 +211,47 @@ If you include this element as part of `paper-dialog`, use the class
             }
             var hour12 = this._twelveHour(hour);
 
+            console.log('setting h:' + hour + ', h12:' + hour12 + ', m:' + minute + ', p:' + period + ')');
+
             this._setting = true;
             this.hour = hour;
-            this.hour12 = hour12;
             this.minute = minute;
             this.period = period;
+            this.hour12 = hour12;
             this._setting = false;
         },
         _hour12Changed: function (value, old) {
           if (value === old) return;
+          console.log('_hour12Changed' + value);
 
           var add = (this.period == 'PM' ? 12 : 0);
-          var hour = (value % 12) + add;
+          var hour = (value + add) % 24;
 
           this._set(hour, this.minute);
           this._timeChanged();
         },
         _hourChanged: function (value, old) {
             if (value === old) return;
+            console.log('_hourChanged' + value);
 
             this._set(value, this.minute);
             this._timeChanged();
         },
         _minuteChanged: function (value, old) {
             if (value === old) return;
+            console.log('_minuteChanged' + value);
 
             this._set(this.hour, value);
             this._timeChanged();
         },
         _periodChanged: function (value, old) {
             if (value === old) return;
+            console.log('_periodChanged' + value);
 
-            this._set(this.hour, this.minute, value);
+            var add = (this.period == 'PM' ? 12 : -12);
+            var hour = (value + add) % 24;
+
+            this._set(hour, this.minute, value);
             this._timeChanged();
         },
         _timeChanged: function () {
