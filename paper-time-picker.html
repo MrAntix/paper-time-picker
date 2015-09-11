@@ -130,21 +130,25 @@ If you include this element as part of `paper-dialog`, use the class
           hour: {
             type: Number,
             value: 0,
+            notify: true,
             observer: '_hourChanged'
           },
           hour12: {
             type: Number,
             value: 0,
+            notify: true,
             observer: '_hour12Changed'
           },
           minute: {
             type: Number,
             value: 0,
+            notify: true,
             observer: '_minuteChanged'
           },
           period: {
             type: String,
             value: 'AM',
+            notify: true,
             observer: '_periodChanged'
           },
           _queryMatches: {
@@ -203,10 +207,10 @@ If you include this element as part of `paper-dialog`, use the class
             }
             var hour12 = this._twelveHour(hour);
 
+            this.period = period;
             this.hour = hour;
             this.hour12 = hour12;
             this.minute = minute;
-            this.period = period;
         },
         _hour12Changed: function (hour12, old) {
           if (hour12 === old) return;
