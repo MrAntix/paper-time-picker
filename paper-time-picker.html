@@ -187,7 +187,7 @@ If you include this element as part of `paper-dialog`, use the class
               : null;
 
           this._set(hour, minute, period);
-          this.fire('time-changed', { hour: this.hour, minute: this.minute });
+          this._timeChanged();
         },
         togglePeriod: function() {
           this._set(this.hour, this.minute, (this.period == 'AM') ? 'PM' : 'AM');
@@ -215,25 +215,25 @@ If you include this element as part of `paper-dialog`, use the class
           var hour = (hour12 % 12) + add;
 
           this._set(hour, this.minute);
-          this.fire('time-changed', { hour: this.hour, minute: this.minute });
+          this._timeChanged();
         },
         _hourChanged: function (hour, old) {
             if (hour === old) return;
 
             this._set(hour, this.minute);
-            this.fire('time-changed', { hour: this.hour, minute: this.minute });
+            this._timeChanged();
         },
         _minuteChanged: function (minute, old) {
             if (minute === old) return;
 
             this._set(this.hour, minute);
-            this.fire('time-changed', { hour: this.hour, minute: this.minute });
+            this._timeChanged();
         },
         _periodChanged: function (period, old) {
             if (period === old) return;
 
             this._set(this.hour, this.minute, period);
-            this.fire('time-changed', { hour: this.hour, minute: this.minute });
+            this._timeChanged();
         },
         _timeChanged: function () {
             this.fire('time-changed', { hour: this.hour, minute: this.minute });
