@@ -186,8 +186,9 @@ If you include this element as part of `paper-dialog`, use the class
           if (period == 'p' && hour <= 12) {
             hour = (hour + 12) % 24;
           }
-          this.set('hour', hour);
-          this.set('minute', minute);
+          this.hour = hour;
+          this.minute = minute;
+          this.fire('time-changed', { hour: this.hour, minute: this.minute });
         },
         togglePeriod: function() {
           this.period = (this.period == 'AM') ? 'PM' : 'AM';
