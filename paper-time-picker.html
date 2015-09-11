@@ -173,14 +173,13 @@ If you include this element as part of `paper-dialog`, use the class
           return hour + ':' + minute + ' ' + this.period;
         },
         set time(timeString) {
-          if (timeString === this.time) return;
+          if (typeof timeString !== 'string'
+                  || timeString === this.time) return;
 
           var pattern = /^\s*(\d{1,2}):?(\d{2})(\s*([AaPp])\.?[Mm]\.?|[A-Z])?\s*$/;
           var match = timeString.match(pattern);
-          if (!match) {
-              return;
-            throw "Invalid time";
-          }
+          if (!match) throw "Invalid time";
+          
           var hour = parseInt(match[1]);
           var minute = parseInt(match[2]);
           var period = match[4]
