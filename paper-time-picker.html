@@ -194,7 +194,7 @@ If you include this element as part of `paper-dialog`, use the class
           this._timeChanged();
         },
         togglePeriod: function() {
-          this._set(this.hour, this.minute, (this.period == 'AM') ? 'PM' : 'AM');
+          this.period = this.period == 'AM' ? 'PM' : 'AM';
         },
         _set: function (hour, minute, period) {
             if (this._setting) return;
@@ -204,9 +204,7 @@ If you include this element as part of `paper-dialog`, use the class
             hour = (parseInt(hour) || 0) % 24;
             minute = (parseInt(minute) || 0) % 60;
 
-            if (period) {
-                hour += (period == 'PM') ? 12 : 0;
-            } else {
+            if (!period) {
                 period = period || ['PM', 'AM'][+(hour < 12)];
             }
             var hour12 = this._twelveHour(hour);
